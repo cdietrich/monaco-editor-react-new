@@ -9,6 +9,7 @@ import { useWorkerFactory, type WorkerLoader } from 'monaco-languageclient/worke
 import type * as monaco from "@codingame/monaco-vscode-editor-api"
 import './App.css'
 import { Logger } from "monaco-languageclient/tools";
+import { useEffect, useState } from "react";
 
 type Model = { content: string; uri: string; languageId: string; }
 
@@ -119,17 +120,24 @@ function App() {
     languageId: "hello",
   } )
 
+  const [ height, setHeight ] = useState('80vh');
+
+                useEffect(() => {
+                    const timer = setTimeout(() => {
+                        console.log('Updating styles');
+                        setHeight('85vh');
+                    }, 2000);
+
+                    return () => clearTimeout(timer);
+                }, []);
+
   return (
-    <div className="lulu">
+    <div style={{ 'height': height }} >
       <MonacoEditorReactComp
       //otherFiles={otherFiles}
       wrapperConfig={wrapperConfig}
     // onTextChanged={(text) => { setModelContent2(text.main) }}
-    style={{
-      paddingTop: '5px',
-      height: '40vh',
-      width: '800px',
-    }}
+    style={{ 'height': '100%' }}
     
         />
     </div>
