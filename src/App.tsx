@@ -60,6 +60,7 @@ const getUserConfig = (
   return {
     $type: "classic",
     htmlContainer: htmlElement,
+    logLevel: 1,
     vscodeApiConfig: {
       serviceOverrides: {
         ...getConfigurationServiceOverride(),
