@@ -111,7 +111,7 @@ const getUserConfig = (
 
 
 function App() {
-  const initialModel = "person A Hello A! Hello Person1!";
+  const [initialModel, setInitialModel] = useState( "person A Hello A! Hello Person1!");
   const wrapperConfig: WrapperConfig = getUserConfig(
     
     './hello-world-server-worker.js', "hello", document.getElementById('root')!, {
@@ -122,17 +122,20 @@ function App() {
 
   const [ height, setHeight ] = useState('80vh');
 
-                useEffect(() => {
-                    const timer = setTimeout(() => {
-                        console.log('Updating styles');
-                        setHeight('85vh');
-                    }, 2000);
+                // useEffect(() => {
+                //     const timer = setTimeout(() => {
+                //         console.log('Updating styles');
+                //         setHeight('85vh');
+                //     }, 2000);
 
-                    return () => clearTimeout(timer);
-                }, []);
-
+                //     return () => clearTimeout(timer);
+                // }, []);
+  const clickMe = () => {
+    setInitialModel("person B Hello B! Hello Person2!");
+  }
   return (
     <div style={{ 'height': height }} >
+      <button onClick={clickMe}>Click Me</button>
       <MonacoEditorReactComp
       //otherFiles={otherFiles}
       wrapperConfig={wrapperConfig}
