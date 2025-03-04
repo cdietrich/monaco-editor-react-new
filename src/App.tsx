@@ -91,17 +91,22 @@ const getUserConfig = (
       monacoWorkerFactory: configureMonacoWorkers,
     },
     languageClientConfigs: {
-      hello: {
-        connection: {
-          options: {
-            $type: "WorkerDirect",
-            worker: langiumWorker,
+      automaticallyDispose: true,
+      automaticallyInit: true,
+      automaticallyStart: true,
+      configs: {
+        hello: {
+          connection: {
+            options: {
+              $type: "WorkerDirect",
+              worker: langiumWorker,
+            },
+          },
+          clientOptions: {
+            documentSelector: [languageId],
           },
         },
-        clientOptions: {
-          documentSelector: [languageId],
-        },
-      },
+      }
     },
   }
 
