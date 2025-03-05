@@ -91,9 +91,6 @@ const getUserConfig = (
       monacoWorkerFactory: configureMonacoWorkers,
     },
     languageClientConfigs: {
-      automaticallyDispose: true,
-      automaticallyInit: true,
-      automaticallyStart: true,
       configs: {
         hello: {
           connection: {
