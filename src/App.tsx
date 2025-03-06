@@ -92,6 +92,10 @@ const getUserConfig = (
     },
     languageClientConfigs: {
       automaticallyDisposeWorkers: true,
+      automaticallyInit: true,
+      automaticallyDispose: true,
+      automaticallyStart: true,
+      
       configs: {
         hello: {
           connection: {
