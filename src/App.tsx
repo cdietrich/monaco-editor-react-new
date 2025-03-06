@@ -139,11 +139,13 @@ function App() {
                 //     return () => clearTimeout(timer);
                 // }, []);
                 let wrapper: MonacoEditorLanguageClientWrapper;
-                const clickMe = () => {
-                   wrapper.updateCodeResources({
+                const clickMe = async () => {
+                   await wrapper.updateCodeResources({
                     modified: {
                        uri: "/workspace/demo2.hello",
-                       text: "person B Hello B! Hello Person2! Hello A!"
+                       text: "person B Hello B! Hello Person2! Hello A!",
+                       enforceLanguageId: "hello",
+                       //languageId: "hello",
                      }
                    });
                
