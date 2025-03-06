@@ -142,8 +142,8 @@ function App() {
                 const clickMe = () => {
                    wrapper.updateCodeResources({
                     modified: {
-                       uri: "/workspace/demo.hello",
-                       text: "person B Hello B! Hello Person2!"
+                       uri: "/workspace/demo2.hello",
+                       text: "person B Hello B! Hello Person2! Hello A!"
                      }
                    });
                
