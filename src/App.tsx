@@ -51,7 +51,7 @@ const getUserConfig = (
   const loadLangiumWorker = () => {
     console.log(`Langium worker URL: ${workerUrl}`)
     const workerURL = new URL('./hello-world-server-worker.js', window.location.origin)
-    console.log(workerURL.toString())
+    console.log("new worker", workerURL.toString())
     return new Worker(workerURL, {
       type: "module",
       name: "Lotse Language Server Worker",
@@ -91,6 +91,7 @@ const getUserConfig = (
       monacoWorkerFactory: configureMonacoWorkers,
     },
     languageClientConfigs: {
+      automaticallyDisposeWorkers: true,
       configs: {
         hello: {
           connection: {
