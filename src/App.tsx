@@ -4,7 +4,7 @@ import getKeybindingsServiceOverride from "@codingame/monaco-vscode-keybindings-
 import {
   MonacoEditorReactComp,
 } from "@typefox/monaco-editor-react";
-import {type WrapperConfig } from 'monaco-editor-wrapper';
+import {MonacoEditorLanguageClientWrapper, type WrapperConfig } from 'monaco-editor-wrapper';
 import { useWorkerFactory, type WorkerLoader } from 'monaco-languageclient/workerFactory';
 import type * as monaco from "@codingame/monaco-vscode-editor-api"
 import './App.css'
@@ -73,6 +73,7 @@ const getUserConfig = (
         modified: {
           text: model.content,
           fileExt,
+          uri: model.uri,
           enforceLanguageId: model.languageId,
         },
       },
@@ -123,7 +124,7 @@ function App() {
     
     './hello-world-server-worker.js', "hello", document.getElementById('root')!, {
     content: initialModel,
-    uri: "demo.hello",
+    uri: "/workspace/demo.hello",
     languageId: "hello",
   } )
 
@@ -137,15 +138,26 @@ function App() {
 
                 //     return () => clearTimeout(timer);
                 // }, []);
-  const clickMe = () => {
-    setInitialModel("person B Hello B! Hello Person2!");
-  }
+                let wrapper: MonacoEditorLanguageClientWrapper;
+                const clickMe = () => {
+                   wrapper.updateCodeResources({
+                    modified: {
+                       uri: "/workspace/demo.hello",
+                       text: "person B Hello B! Hello Person2!"
+                     }
+                   });
+               
+                 }
   return (
     <div style={{ 'height': height }} >
       <button onClick={clickMe}>Click Me</button>
       <MonacoEditorReactComp
       //otherFiles={otherFiles}
       wrapperConfig={wrapperConfig}
+      onLoad={(w) => {
+        wrapper = w;
+      }}
+      
     // onTextChanged={(text) => { setModelContent2(text.main) }}
     style={{ 'height': '100%' }}
     
