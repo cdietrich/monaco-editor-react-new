@@ -6,7 +6,7 @@ import {
 } from "@typefox/monaco-editor-react";
 import {MonacoEditorLanguageClientWrapper, type WrapperConfig } from 'monaco-editor-wrapper';
 import { useWorkerFactory, type WorkerLoader } from 'monaco-languageclient/workerFactory';
-import type * as monaco from "@codingame/monaco-vscode-editor-api"
+import * as monaco from "@codingame/monaco-vscode-editor-api"
 import './App.css'
 import { Logger } from "monaco-languageclient/tools";
 import { useEffect, useState } from "react";
@@ -140,6 +140,8 @@ function App() {
                 // }, []);
                 let wrapper: MonacoEditorLanguageClientWrapper;
                 const clickMe = async () => {
+                  //wrapper.getLanguageClient("hello")?.sendRequest("custom/clear",{})
+                   wrapper.getEditor()?.getModel()!.dispose();
                    await wrapper.updateCodeResources({
                     modified: {
                        uri: "/workspace/demo2.hello",
@@ -148,6 +150,7 @@ function App() {
                        //languageId: "hello",
                      }
                    });
+                   console.log("monaco.editor.getModels()", monaco.editor.getModels().map(m => m.uri.toString()));
                
                  }
   return (

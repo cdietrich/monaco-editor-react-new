@@ -23080,7 +23080,6 @@ ${suffix}`
         }
         const documents = services.workspace.TextDocuments;
         documents.onDidChangeContent((change) => {
-          console.log("documents.onDidChangeContent", JSON.stringify(change))
           onDidChange([vscode_uri_1.URI.parse(change.document.uri)], []);
         });
         connection.onDidChangeWatchedFiles((params) => {
@@ -66760,12 +66759,27 @@ ${JSON.stringify(change, void 0, 4)}`);
       var langium_1 = require_lib2();
       var browser_1 = require_browser3();
       var hello_world_module_1 = require_hello_world_module();
+      var vscode_uri_1 = require_umd();
       console.log("a");
       var messageReader = new browser_1.BrowserMessageReader(self);
       messageReader.listen((m) => console.log("xxx", m));
       var messageWriter = new browser_1.BrowserMessageWriter(self);
       var connection = (0, browser_1.createConnection)(messageReader, messageWriter);
       var { shared } = (0, hello_world_module_1.createHelloWorldServices)(Object.assign({ connection }, langium_1.EmptyFileSystem));
+      var documentBuilder = shared.workspace.DocumentBuilder;
+      var documents = shared.workspace.TextDocuments;
+      var mutex = shared.workspace.MutexLock;
+      async function onDidClose(uri) {
+        await mutex.lock((token) => documentBuilder.update([], [uri], token));
+      }
+      documents.onDidClose(async (event) => {
+        console.log("onDidClose", event.document.uri.toString());
+        await onDidClose(vscode_uri_1.URI.parse(event.document.uri));
+      });
+      connection.onRequest("custom/clear", async () => {
+        documentBuilder.update([], documents.all().map((d) => vscode_uri_1.URI.parse(d.uri)), void 0);
+        return "";
+      });
       (0, langium_1.startLanguageServer)(shared);
     }
   });
