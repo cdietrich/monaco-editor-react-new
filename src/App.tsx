@@ -72,7 +72,6 @@ const getUserConfig = (
       codeResources: {
         modified: {
           text: model.content,
-          fileExt,
           uri: model.uri,
           enforceLanguageId: model.languageId,
         },
