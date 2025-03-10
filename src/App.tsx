@@ -141,7 +141,7 @@ function App() {
                 let wrapper: MonacoEditorLanguageClientWrapper;
                 const clickMe = async () => {
                   //wrapper.getLanguageClient("hello")?.sendRequest("custom/clear",{})
-                   wrapper.getEditor()?.getModel()!.dispose();
+                   //wrapper.getEditor()?.getModel()!.dispose();
                    await wrapper.updateCodeResources({
                     modified: {
                        uri: "/workspace/demo2.hello",
